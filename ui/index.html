@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YT Downloader · Kitvi</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="../kitvi-sdk.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="download-workspace">
+    <header class="page-heading">
+      <div><div class="product-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="14" rx="4"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor" stroke="none"/></svg></div><h1>YT Downloader</h1><p>영상 한 편, 원하는 폴더에.</p></div>
+      <span class="sdk-note">Kitvi 플러그인</span>
+    </header>
+
+    <section class="setup-panel" aria-labelledby="engine-heading">
+      <div class="step-index" aria-hidden="true">01</div>
+      <div class="setup-copy"><h2 id="engine-heading">다운로드 엔진</h2><p id="engine-message">처음 한 번, 공식 yt-dlp 엔진을 설치해 주세요.</p><p class="small">Python·Node 설치 없이 작동합니다. 엔진은 공식 배포처에서 내려받습니다.</p></div>
+      <button id="install-engine" type="button" class="button secondary">엔진 설치</button>
+      <progress id="engine-progress" max="100" hidden aria-label="엔진 설치 진행률"></progress>
+    </section>
+
+    <section class="setup-panel folder-panel" aria-labelledby="folder-heading">
+      <div class="step-index" aria-hidden="true">02</div>
+      <div class="setup-copy"><h2 id="folder-heading">저장 폴더</h2><p id="folder-path">다운로드할 폴더를 선택해 주세요.</p></div>
+      <div class="folder-actions"><button id="open-folder" type="button" class="button text" disabled>폴더 열기</button><button id="choose-folder" type="button" class="button secondary">폴더 선택</button></div>
+    </section>
+
+    <section class="download-panel" aria-labelledby="url-heading">
+      <div class="section-heading"><h2 id="url-heading">YouTube 영상 주소</h2><span>공개 영상 · 최대 2 GB</span></div>
+      <form id="analyze-form">
+        <label class="sr-only" for="video-url">YouTube 영상 주소</label>
+        <div class="url-row"><input id="video-url" type="url" maxlength="2048" placeholder="https://www.youtube.com/watch?v=…" autocomplete="off" spellcheck="false" required aria-describedby="url-help"><button id="analyze" type="submit" class="button primary" disabled>정보 확인</button></div>
+        <p class="small" id="url-help">watch, youtu.be, shorts 주소를 지원합니다. 주소를 붙여넣은 뒤 정보 확인을 눌러 주세요.</p>
+      </form>
+      <div id="video-info" class="video-info" hidden><div class="video-symbol" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 4v5M16 4v5m-6 4 5 2-5 2v-4Z"/></svg></div><div><h3 id="video-title"></h3><p id="video-details"></p></div></div>
+      <fieldset id="mode-select"><legend>저장 형식</legend><div class="format-options"><label class="format-option"><input type="radio" name="mode" value="video" checked><span><strong>영상</strong><small>단일 파일 · MP4 우선</small></span></label><label class="format-option"><input type="radio" name="mode" value="audio"><span><strong>오디오</strong><small>원본 오디오 · M4A 우선</small></span></label></div></fieldset>
+      <div class="download-footer"><p>단일 파일 화질로 저장하며,<br>고화질 스트림 병합·MP3 변환은 제공하지 않습니다.</p><button id="start-download" type="button" class="button primary" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg>다운로드</button></div>
+    </section>
+
+    <p id="notice" class="notice" role="status" aria-live="polite" hidden></p>
+    <section class="jobs-panel" aria-labelledby="jobs-heading"><div class="section-heading"><h2 id="jobs-heading">다운로드 기록</h2><span id="job-count">0개</span></div><p class="empty-state" id="empty-jobs">아직 다운로드한 영상이 없습니다.</p><ol id="jobs"></ol></section>
+    <footer class="workspace-footer">직접 제작했거나 다운로드할 권한이 있는 공개 영상에 사용해 주세요. 로그인·쿠키·DRM 기능은 지원하지 않습니다.</footer>
+  </main>
+</body>
+</html>

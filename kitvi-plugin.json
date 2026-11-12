@@ -1,0 +1,11 @@
+{
+  "apiVersion": 1,
+  "id": "kitvi.yt-downloader",
+  "name": "YT Downloader",
+  "version": "0.1.0",
+  "minKitviVersion": "0.4.0",
+  "description": "공개 YouTube 영상을 단일 파일 영상 또는 원본 오디오로 저장합니다.",
+  "author": "Kitvi",
+  "entry": "ui/index.html",
+  "permissions": ["storage", "downloads", "media"]
+}

@@ -153,6 +153,8 @@ Node 24 이상에서 `npm test`와 `npm run package`를 실행합니다. 패키�
 
 GitHub Releases에는 **정확히 하나의 `*.kitvi-plugin.zip`**과 **`SHA256SUMS.txt`**를 함께 첨부합니다. 체크섬의 각 줄은 다음과 같습니다.
 
+Kitvi 0.5.0부터 자동 버전 확인과 목록 업데이트 버튼을 지원합니다. 이를 사용하려면 안정 릴리스의 태그를 매니페스트 `version`과 같은 `v1.2.3` 또는 `1.2.3` 형식으로 게시하세요. 자동 확인은 `/releases/latest`의 JSON만 조회합니다. 적용 시 ZIP 안의 ID·버전·최소 Kitvi 버전·권한과 SHA256을 다시 확인합니다. 추가 권한은 사용자 확인을 거치며 기존 설정·사용 여부는 유지됩니다. Draft·Preview 릴리스와 버전 형식이 다른 태그는 자동 업데이트 대상으로 게시하지 마세요. 로컬 ZIP 설치는 새 ZIP 선택으로 갱신합니다.
+
 ```text
 <64자리 SHA256>  kitvi-YT-downloader-0.1.0.kitvi-plugin.zip
 ```

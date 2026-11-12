@@ -36,7 +36,7 @@ app.whenReady().then(async () => {
     await js('document.getElementById("choose-folder").click()'); await until('!document.getElementById("open-folder").disabled');
     await js('document.getElementById("video-url").value="https://www.youtube.com/watch?v=YE7VzlLtp-4"; document.getElementById("video-url").dispatchEvent(new Event("input"))');
     assert.equal(await js('calls.includes("media.analyze") || calls.includes("media.start")'), false, 'paste cannot trigger network/media actions');
-    await js('document.getElementById("analyze-form").requestSubmit()'); await until('!document.getElementById("start-download").disabled');
+    await js('document.getElementById("analyze").click()'); await until('!document.getElementById("start-download").disabled');
     assert.equal(await js('document.querySelector("#video-title b")'), null, 'metadata must render as text');
     await js('document.getElementById("start-download").click()'); await until('document.querySelectorAll(".job").length === 1'); await capture('running-light');
     await js('window.appearance="dark"; window.sendState()'); await until('document.documentElement.dataset.theme === "dark"'); await capture('running-dark');

@@ -5,12 +5,16 @@
 ## 설치
 
 1. Windows x64용 **Kitvi 0.4.0 이상**을 실행합니다.
-2. Kitvi **플러그인**에서 GitHub 저장소 `popop098/kitvi-YT-downloader`를 추가하거나, [Releases](https://github.com/popop098/kitvi-YT-downloader/releases)에서 받은 `kitvi-YT-downloader-0.1.0.kitvi-plugin.zip`을 로컬 ZIP으로 선택합니다.
+2. Kitvi **플러그인**에서 GitHub 저장소 `popop098/kitvi-YT-downloader`를 추가하거나, [Releases](https://github.com/popop098/kitvi-YT-downloader/releases)에서 받은 `kitvi-YT-downloader-0.1.1.kitvi-plugin.zip`을 로컬 ZIP으로 선택합니다.
 3. 이름·버전과 `storage`, `downloads`, `media` 권한을 확인한 뒤 설치합니다.
 4. 플러그인을 열고 **엔진 설치**를 누릅니다. Kitvi가 [공식 yt-dlp Releases](https://github.com/yt-dlp/yt-dlp/releases)에서 Windows x64 실행 파일과 `SHA2-256SUMS`를 받아 SHA256을 검증합니다.
 5. **폴더 선택** → YouTube 주소 입력 → **정보 확인** → 형식 선택 → **다운로드** 순서로 진행합니다. 붙여넣기만으로 다운로드하지 않습니다.
 
 사용자 PC에 Python·Node·FFmpeg를 따로 설치할 필요가 없습니다. yt-dlp는 Kitvi에 포함된 Node/Electron 런타임을 사용합니다. 엔진 실행 파일은 이 플러그인 ZIP이나 소스에 포함하지 않습니다.
+
+### 0.1.0에서 업데이트
+
+플러그인 목록으로 돌아가 같은 저장소 `popop098/kitvi-YT-downloader`를 **가져오기 → 0.1.1 확인하고 설치** 순서로 업데이트하세요. 기존 엔진은 계속 사용할 수 있습니다. 0.1.1은 격리 화면에서 **정보 확인** 버튼이 반응하지 않던 문제를 수정하고, Enter 키와 입력란 옆의 확인 중·오류 표시를 추가합니다. Kitvi 앱은 0.4.0을 그대로 사용합니다.
 
 ## 지원 범위
 
@@ -44,19 +48,28 @@ npm test
 npm run package
 ```
 
-`dist/kitvi-YT-downloader-0.1.0.kitvi-plugin.zip`과 `dist/SHA256SUMS.txt`가 생성됩니다. ZIP에는 최상위 `kitvi-plugin.json`, `kitvi-sdk.js`, UI, 라이선스만 포함됩니다. GitHub Releases로 배포하려면 두 파일을 같은 릴리스의 자산으로 올리세요. 플러그인 설치기는 릴리스 ZIP과 체크섬을 대조합니다. 폰트와 그 라이선스를 제외한 예제 코드는 [MIT](LICENSE)입니다. 별도 다운로드 엔진의 라이선스는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 설명합니다.
+`dist/kitvi-YT-downloader-0.1.1.kitvi-plugin.zip`과 `dist/SHA256SUMS.txt`가 생성됩니다. ZIP에는 최상위 `kitvi-plugin.json`, `kitvi-sdk.js`, UI, 라이선스만 포함됩니다. GitHub Releases로 배포하려면 두 파일을 같은 릴리스의 자산으로 올리세요. 플러그인 설치기는 릴리스 ZIP과 체크섬을 대조합니다. 폰트와 그 라이선스를 제외한 예제 코드는 [MIT](LICENSE)입니다. 별도 다운로드 엔진의 라이선스는 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 설명합니다.
+
+UI 회귀 검사는 Electron 개발 실행 파일을 지정해 실행합니다. `ELECTRON_EXE`는 Electron SDK의 실행 파일이며 Kitvi 설치 EXE가 아닙니다. 검사에는 테스트용 호스트 응답을 사용하고 실제 영상 다운로드는 실행하지 않습니다.
+
+```powershell
+$env:ELECTRON_EXE = 'C:\path\to\electron.exe'
+npm run test:ui
+```
 
 ## 검증 기록 · 2026-11-12
 
 Windows x64에서 공식 yt-dlp `2026.10.26`을 직접 받아 SHA256을 검증하고, Kitvi에 포함된 Electron `45.3.0` / Node `24.22.2`로 [현재 upstream YouTube 테스트 영상](https://github.com/yt-dlp/yt-dlp/blob/master/yt_dlp/extractor/youtube/_video.py)인 Blender의 **Big Buck Bunny** (`YE7VzlLtp-4`)를 분석했습니다. MP4 25,333,815바이트와 원본 M4A 28,914,897바이트 다운로드, Windows 작업 취소·프로세스 정리를 확인했습니다. 별도 Python·Node·FFmpeg 설치는 사용하지 않았습니다.
 
-실제 패키지의 Kitvi 설치 미리보기·확인·HTML/SDK/글꼴 읽기를 검증했습니다. UI는 숨겨진 sandbox Electron 창에서 **테스트용 호스트 응답**으로 버튼 흐름, 붙여넣기 시 자동 실행 없음, 메타데이터 텍스트 처리, 밝게/어둡게, 450px 좁은 화면을 확인했습니다. 이 UI 검사는 실제 엔진 다운로드 검증과 구분됩니다. 다른 영상·지역·네트워크에서의 성공까지 보장하는 결과는 아닙니다.
+실제 패키지의 Kitvi 설치 미리보기·확인·HTML/SDK/글꼴 읽기를 검증했습니다. 초기 0.1.0 UI 검사는 최상위 Electron 화면에서 실행해 실제 iframe의 폼 차단을 놓쳤습니다. 0.1.1부터는 실제 호스트와 같은 iframe·응답 CSP의 두 sandbox 조건에서 클릭·키 입력·오류 복구를 회귀 검사합니다. 수정 후 실제 Kitvi 호스트와 공식 엔진을 연결해 **정보 확인** 버튼 클릭으로 Big Buck Bunny의 메타데이터 표시와 다운로드 버튼 활성화를 확인했습니다. 테스트용 호스트 응답 검사와 실제 엔진 검증은 구분하며, 다른 영상·지역·네트워크에서의 성공까지 보장하는 결과는 아닙니다.
 
 ---
 
 ## English
 
 YT Downloader is a public MIT-licensed **Kitvi SDK 1** example for saving one public YouTube video or its original audio. It requires **Kitvi 0.4.0+ on Windows x64**. The Kitvi core source is not part of this repository.
+
+**0.1.1 fixes the unresponsive Analyze button inside Kitvi's sandbox.** Fetch the same repository again in Plugins, review version 0.1.1 and install it. Your existing engine can be reused. The fix uses explicit button/Enter actions without changing host permissions, with pending/error messages beside the URL. UI regression tests use both production iframe and CSP sandbox restrictions; set `ELECTRON_EXE` to an Electron SDK executable and run `npm run test:ui`.
 
 Install the repository `popop098/kitvi-YT-downloader` from Kitvi's Plugins screen, or select the release's `.kitvi-plugin.zip` locally. Review `storage`, `downloads`, and `media` permissions. Open the plugin, choose **엔진 설치** (install engine), select a folder, enter a YouTube URL, choose **정보 확인** (analyze), choose a format, then **다운로드** (download).
 

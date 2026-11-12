@@ -138,6 +138,7 @@ type MediaState = {
 ## 6. 실행 경계
 
 - UI는 sandbox iframe입니다. `require`, Node, Electron IPC, 파일 시스템과 shell에 직접 접근할 수 없습니다. `allow-same-origin`과 임의 팝업·상위 탐색을 요구하지 마세요.
+- SDK 1은 `allow-forms`를 제공하지 않습니다. 네이티브 `<form>` 제출은 `submit` 이벤트 전에 차단될 수 있으므로, 호스트 API 호출은 `type="button"`의 클릭 핸들러로 처리하세요. Enter 키는 입력 요소의 키 핸들러에서 기본 동작을 막고 같은 버튼 동작으로 연결합니다. 테스트도 실제 sandbox iframe에서 버튼·키 입력으로 실행하세요.
 - SDK 1에는 플러그인 제공 네이티브 백엔드, 임의 프로세스 실행, 일반 네트워크 프록시, 임의 파일 읽기/쓰기 API가 없습니다.
 - media API는 공식 yt-dlp 엔진과 호스트가 작성한 고정 인수만 사용합니다. YouTube 개별 HTTPS 주소를 정규화하며 임의 사이트·로컬 URL·로그인 자격정보는 받지 않습니다.
 - 영상은 MP4 우선 단일 파일, 오디오는 M4A 우선 원본 파일입니다. FFmpeg 병합·변환, 재생목록·라이브·로그인·쿠키·DRM 기능은 없습니다.
